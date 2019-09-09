@@ -1,6 +1,6 @@
 {
   "name": "@elumeo/jfs-core-dev",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "jfs_Core-Dev",
   "main": "Main.js",
   "scripts": {
@@ -41,6 +41,7 @@
     "babel-preset-react": "^6.24.1",
     "cache-loader": "^1.2.2",
     "chokidar": "^3.0.2",
+    "command-line-args": "^5.0.2",
     "compression-webpack-plugin": "^1.1.11",
     "copy-webpack-plugin": "^4.0.1",
     "cross-env": "^5.0.5",
