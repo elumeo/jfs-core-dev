@@ -34,7 +34,7 @@ module.exports.common = {
     }
   },
 
-  context: resolve(__dirname, '..', 'jfs-core', 'app'),
+  context: resolve(__dirname, '..', '..', 'jfs-core', 'app'),
   entry: ['./Main.tsx'],
   output: {
     filename: 'bundle.js',

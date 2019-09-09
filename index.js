@@ -29,7 +29,7 @@ const targetBasePath = resolve(
   process.argv[2],
   'node_modules',
   '@elumeo',
-  'jfs-core'
+  'jfs-core-dev'
 );
 
 const printLogs = process.argv[3] === '--print-logs';
@@ -43,7 +43,7 @@ if (printLogs) {
 ['library', 'scripts', 'settings'].map((corePath, index) => {
   const whitelistPrefixes = [];
   const watcher = chokidar.watch(
-    resolve(__dirname, index ? [] : ['..', ], corePath)
+    resolve(__dirname, corePath)
   );
   setTimeout(() =>
   watcher.on('all', (event, sourcePath) => {
