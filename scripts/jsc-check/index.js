@@ -1,8 +1,5 @@
 const axios = require('axios');
 const { Project } = require('../../library/project/project.js');
-const { Directory } = require('../../library/filesystem/directory.js');
-
-const core = new Directory(__dirname, '..', '..');
 
 const project = new Project('.');
 
@@ -23,7 +20,7 @@ jfs.config.file.read(string =>
   const jsc = {};
   jsc.current = {};
   jsc.endpoint = jfs.config.json.Client.Host +'/client/generated/v2';
-  jsc.current.file = core.directory('app').directory('base').file('JscApi.ts');
+  jsc.current.file = project.directory('src').directory('base').file('JscApi.ts');
   jsc.current.file.read(string =>
   {
     jsc.current.api = string;

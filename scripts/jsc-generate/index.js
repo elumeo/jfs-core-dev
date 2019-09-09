@@ -1,15 +1,9 @@
 const axios = require('axios');
 const commandLineArgs = require('command-line-args');
-
 const { Project } = require('../../library/project/project.js');
-const { Directory } = require('../../library/filesystem/directory.js');
-
-const core = new Directory(__dirname, '..', '..');
 
 const project = new Project('.');
-
 const options = commandLineArgs([{ name: 'version', alias: 'v', type: Number }]);
-
 const jfs = {};
 
 jfs.config = {};

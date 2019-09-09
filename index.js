@@ -40,9 +40,11 @@ if (printLogs) {
   console.log('Applied changes will be printed to this console.');
 }
 
-['app', 'library', 'scripts', 'settings'].map(corePath => {
+['library', 'scripts', 'settings'].map((corePath, index) => {
   const whitelistPrefixes = [];
-  const watcher = chokidar.watch(resolve(__dirname, corePath));
+  const watcher = chokidar.watch(
+    resolve(__dirname, index ? [] : ['..', ], corePath)
+  );
   setTimeout(() =>
   watcher.on('all', (event, sourcePath) => {
     const corePath = sourcePath.substring(__dirname.length, sourcePath.length);
