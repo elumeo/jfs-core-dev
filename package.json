@@ -1,6 +1,6 @@
 {
   "name": "@elumeo/jfs-core-dev",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "jfs_Core-Dev",
   "main": "Main.js",
   "scripts": {
@@ -24,7 +24,6 @@
     "@types/react": "^16.0.5",
     "@types/react-addons-css-transition-group": "15.0.3",
     "@types/react-addons-transition-group": "15.0.1",
-    "@types/react-autocomplete": "^1.8.5",
     "@types/react-dom": "^16.0.3",
     "@types/react-infinite": "^0.0.30",
     "@types/react-intl": "2.2.1",
