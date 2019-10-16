@@ -20,17 +20,7 @@ jfs.config.file.read(string =>
   }
 
   jsc.current = {};
-  jsc.current.file = project.directory('src').directory('base').file('JscApi.ts');
-
-  const log =
-  {
-    success: () => console.log("√ New JscApi File '" +jsc.current.file.path +"' successfully created"),
-    error:
-    {
-      network: e => console.log('Network Error => ', 'HTTP: ', e.response.status, e.response.statusText),
-      system: e => console.log('System Error => ', e)
-    }
-  }
+  jsc.current.file = project.directory('src').file('JscApi.ts');
 
   project.file('jscApiConfig.json').read(string =>
   {
@@ -44,14 +34,22 @@ jfs.config.file.read(string =>
         {
           jsc.current.file.write(response.data, () =>
           {
-            log.success();
+            console.log(
+              `√ New JscApi File '${jsc.current.file.path}' successfully created`
+            )
           });
         }
-      }).catch(log.error.network);
+      }).catch(e => {
+        console.log(
+          `Network Error => HTTP: ${e.response.status} ${e.response.statusText}`
+        )
+      });
     }
     catch (err)
     {
-      log.error.system(err.message);
+      e => {
+        console.log(`System Error => ${err.message}`)
+      }
     }
   });
 });

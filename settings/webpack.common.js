@@ -35,7 +35,7 @@ module.exports.common = {
   },
 
   context: resolve(__dirname, '..', '..', 'jfs-core', 'app'),
-  entry: ['./Main.tsx'],
+  entry: [resolve(projectPath, 'src', 'Main.tsx')],
   output: {
     filename: 'bundle.js',
     path: resolve(projectPath, 'dist'),
