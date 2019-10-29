@@ -1,3 +1,5 @@
+const { configFilename } = require("../constants.js");
+
 const { resolve, join } = require('path');
 
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -7,7 +9,7 @@ const projectPath = resolve(__dirname, '..', '..', '..', '..');
 
 const copyJobs = [
   { from: resolve(projectPath, 'static') },
-  { from: resolve(projectPath, 'config.json.dist'),
+  { from: resolve(projectPath, configFilename),
     to: resolve(projectPath, 'dist', 'config.json') }
 ]
 
