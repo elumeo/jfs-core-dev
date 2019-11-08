@@ -3,7 +3,10 @@ const commandLineArgs = require('command-line-args');
 const {Project} = require('../../library/project/project.js');
 
 const project = new Project('.');
-const options = commandLineArgs([{name: 'version', alias: 'v', type: Number}]);
+const options = commandLineArgs([
+    {name: 'version', alias: 'v', type: Number},
+    {name: 'clientPath', type: String}
+]);
 const jfs = {};
 
 jfs.config = {};
@@ -14,8 +17,14 @@ jfs.config.file.read(string => {
     const jsc = {};
 
     jsc.endpoint = jfs.config.json.JscClient.Host + '/client/generated/v2';
-    if (options && options.version === 1) {
-        jsc.endpoint = jfs.config.json.JscClient.Host + '/client/generated/';
+    if(options) {
+        if (options.version === 1) {
+            jsc.endpoint = jfs.config.json.JscClient.Host + '/client/generated/';
+        }
+
+        if (options.clientPath !== '') {
+            jsc.endpoint += '?options=clientPath:' + options.clientPath;
+        }
     }
 
     jsc.current = {};
@@ -27,14 +36,7 @@ jfs.config.file.read(string => {
         try {
             axios.post(jsc.endpoint, jsc.config).then(response => {
                 if (response) {
-                    // let data = response.data.replace(
-                    //     /import\s+client\s+from\s+["']@elumeo\/jfs-core\/app\/base\/Client["']\s*;\n/,
-                    //     "import client from '\@elumeo/jfs-core/src/base/Client';"
-                    // );
-                    if (!data.includes("import client from '\@elumeo/jfs-core/src/base/Client';")) {
-                        data = "import client from '\@elumeo/jfs-core/src/base/Client';\n" + data;
-                    }
-                    jsc.current.file.write(data, () => {
+                    jsc.current.file.write(response.data, () => {
                         console.log(
                             `√ New JscApi File '${jsc.current.file.path}' successfully created`
                         )
