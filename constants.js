@@ -1,3 +1,3 @@
 module.exports = {
-    configFilename: 'config.dist.json'
+    configFilename: 'config.json.dist'
 };

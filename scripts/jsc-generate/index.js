@@ -18,11 +18,11 @@ jfs.config.file.read(string => {
 
     jsc.endpoint = jfs.config.json.JscClient.Host + '/client/generated/v2';
     if(options) {
-        if (options.version === 1) {
+        if (options.version && options.version === 1) {
             jsc.endpoint = jfs.config.json.JscClient.Host + '/client/generated/';
         }
 
-        if (options.clientPath !== '') {
+        if (options.clientPath && options.clientPath !== '') {
             jsc.endpoint += '?options=clientPath:' + options.clientPath;
         }
     }
