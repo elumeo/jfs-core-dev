@@ -5,7 +5,7 @@ const {Project} = require('../../library/project/project.js');
 const project = new Project('.');
 const options = commandLineArgs([
     {name: 'version', alias: 'v', type: Number},
-    {name: 'clientPath', type: String}
+    {name: 'elumeoPath', type: String}
 ]);
 const jfs = {};
 
@@ -22,8 +22,8 @@ jfs.config.file.read(string => {
             jsc.endpoint = jfs.config.json.JscClient.Host + '/client/generated/';
         }
 
-        if (options.clientPath && options.clientPath !== '') {
-            jsc.endpoint += '?options=clientPath:' + options.clientPath;
+        if (options.elumeoPath && options.elumeoPath !== '') {
+            jsc.endpoint += '?options=elumeoPath:' + options.elumeoPath;
         }
     }
 
