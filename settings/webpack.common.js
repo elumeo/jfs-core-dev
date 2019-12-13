@@ -24,6 +24,34 @@ try {
   });
 }
 
+const babelLoader = {
+  loader: 'babel-loader',
+  options: {
+    presets: ['react', ['es2015', { modules: false, loose: true }]],
+    plugins: ['transform-runtime', 'lodash']
+  }
+};
+
+const atLoader = { loader: 'awesome-typescript-loader' }
+
+const typescriptRule = {
+  test: /\.tsx?$/,
+  use: [
+    babelLoader,
+    atLoader
+  ]
+};
+
+const sassRule = {
+  test: /\.s*css$/,
+  loaders: ['style-loader', 'css-loader', 'sass-loader']
+}
+
+const jsonRule = {
+  test: /\.json$/,
+  loaders: ['json-loader']
+}
+
 module.exports.common = {
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.json'],
@@ -46,30 +74,10 @@ module.exports.common = {
 
   module: {
     rules: [
-      {
-        test: /\.tsx?$/,
-        use: [
-          {
-            loader: 'babel-loader',
-            options: {
-              presets: ['react', ['es2015', { modules: false, loose: true }]],
-              plugins: ['transform-runtime', 'lodash']
-            }
-          },
-          'awesome-typescript-loader'
-        ]
-      },
-      {
-        test: /\.s*css$/,
-        loaders: ['style-loader', 'css-loader', 'sass-loader']
-      }
+      typescriptRule,
+      sassRule,
+      jsonRule
     ],
-    loaders: [
-      {
-        test: /\.json$/,
-        loader: 'json-loader'
-      }
-    ]
   },
   performance: { hints: false },
   plugins: [
@@ -83,3 +91,10 @@ module.exports.common = {
 };
 
 module.exports.projectPath = projectPath;
+
+module.exports.typescriptRule = typescriptRule;
+module.exports.babelLoader = babelLoader;
+module.exports.atLoader = atLoader;
+
+module.exports.sassRule = sassRule;
+module.exports.jsonRule = jsonRule;

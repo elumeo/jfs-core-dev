@@ -3,7 +3,16 @@ const webpack = require('webpack');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 
-const { projectPath, common, local } = require('./webpack.common.js');
+const {
+  projectPath,
+  common,
+  local,
+  typescriptRule,
+  babelLoader,
+  atLoader,
+  sassRule,
+  jsonRule
+} = require('./webpack.common.js');
 
 const mode = process.argv.includes('--watch') ? 'watch' : 'devServer';
 const https = mode === 'devServer' && process.argv.includes('--https');
@@ -20,15 +29,20 @@ module.exports = {
 };
 
 if (mode === 'devServer') {
+  const host = local ? local.hostname : '127.0.0.1';
+  const port = local ? local.port : '2008';
+
   module.exports.devServer = {
     https,
     contentBase: resolve(projectPath, 'dist'),
+    hot: true,
+    inline: true,
     compress: true,
     historyApiFallback: true,
     disableHostCheck: true,
     noInfo: true,
-    host: local ? local.hostname : '127.0.0.1',
-    port: local ? local.port : '2008',
+    host: host,
+    port: port,
     publicPath: '/',
     watchOptions: {
       poll: 1500,
@@ -36,6 +50,35 @@ if (mode === 'devServer') {
       aggregateTimeout: 200
     }
   };
+
+  const entry = module.exports.entry[0];
+
+  module.exports.entry = () => [
+    `webpack-dev-server/client?http://${host}:${port}/`,
+    'webpack/hot/only-dev-server',
+    entry
+  ];
+
+  module.exports.output.publicPath = 'http://localhost:8080/';
+
+  module.exports.module.rules = [
+    {
+      ...typescriptRule,
+      use: [
+        { loader: 'react-hot-loader/webpack' },
+        {
+          ...babelLoader,
+          options: {
+            ...babelLoader.options,
+            presets: [...babelLoader.options.presets, 'react-hmre']
+          }
+        },
+        atLoader
+      ]
+    },
+    sassRule,
+    jsonRule
+  ];
 
   module.exports.plugins.push(new webpack.HotModuleReplacementPlugin());
 }
