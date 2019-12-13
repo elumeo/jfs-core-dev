@@ -1,6 +1,6 @@
 {
   "name": "@elumeo/jfs-core-dev",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "Developer tools for JFS Core/Apps",
   "main": "Main.js",
   "scripts": {
