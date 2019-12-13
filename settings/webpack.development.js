@@ -59,7 +59,7 @@ if (mode === 'devServer') {
     entry
   ];
 
-  module.exports.output.publicPath = 'http://localhost:8080/';
+  module.exports.output.publicPath = `http://localhost:${port}/`;
 
   module.exports.module.rules = [
     {
